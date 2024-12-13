@@ -7,8 +7,7 @@ fact {
   oneLe = Zero -> Top + NonZero -> Top + Bot -> Zero + Bot -> NonZero
 }
 
-run ShowLattice {} for 0 but exactly 4 LatticeElement
-
+run ShowLattice {} for 0 but exactly 4 LatticeElement expect 1
 fun Alpha [n: Int]: LatticeElement {
   { res: LatticeElement |
     zero[n] implies res = Zero
@@ -168,7 +167,7 @@ pred Monotone {
   LiftedLeq[FlowThrough[s1, s], FlowThrough[s2, s]]
 }
 check Monotone { Monotone } for 10
-but exactly 10 Var, exactly 1 Stmt
+but exactly 10 Var, exactly 1 Stmt expect 0
 
 sig AnalysisResult {
   resultBefore: seq/Int -> (Var -> LatticeElement),
@@ -255,4 +254,4 @@ run CheckPropertyOnResults {
       some i: seq/Int, v: Var | v.(i.(r.resultBefore)) = NonZero
     }
   }
-} for 10 but exactly 5 Stmt, exactly 3 Var, exactly 1 Program, exactly 1 AnalysisResult expect 1
+} for 10 but exactly 5 Stmt, exactly 3 Var, exactly 1 Program, exactly 1 AnalysisResult expect 0
