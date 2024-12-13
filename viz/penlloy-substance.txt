@@ -1,0 +1,88 @@
+_type_AnalysisResult _atom_AnalysisResult_0
+_type_Bot _atom_Bot_0
+_type_NonZero _atom_NonZero_0
+_type_Top _atom_Top_0
+_type_Zero _atom_Zero_0
+_type_prog_SLASH_AssignNumber _atom_prog_SLASH_AssignNumber_0, _atom_prog_SLASH_AssignNumber_1
+_type_prog_SLASH_AssignOp _atom_prog_SLASH_AssignOp_0, _atom_prog_SLASH_AssignOp_1
+_type_prog_SLASH_Goto _atom_prog_SLASH_Goto_0
+_type_prog_SLASH_Program _atom_prog_SLASH_Program_0
+_type_prog_SLASH_Var _atom_prog_SLASH_Var_0, _atom_prog_SLASH_Var_1, _atom_prog_SLASH_Var_2
+Set s0 := _set__DOLLAR_GenerateAnyResult_r(_atom_AnalysisResult_0)
+Set s1 := _set_integer_SLASH_Bit(-1)
+Set s2 := _set_integer_SLASH_Bit(0)
+Set s3 := _set__DOLLAR_SimpleProg_st0(_atom_prog_SLASH_AssignNumber_0)
+Set s4 := _set__DOLLAR_SimpleProg_st1(_atom_prog_SLASH_AssignNumber_1)
+Set s5 := _set__DOLLAR_SimpleProg_st3(_atom_prog_SLASH_AssignOp_0)
+Set s6 := _set__DOLLAR_SimpleProg_st2(_atom_prog_SLASH_AssignOp_1)
+Set s7 := _set__DOLLAR_SimpleProg_st4(_atom_prog_SLASH_Goto_0)
+Set s8 := _set__DOLLAR_GenerateAnyResult_p(_atom_prog_SLASH_Program_0)
+Set s9 := _set__DOLLAR_GenerateAnyResult_v1(_atom_prog_SLASH_Var_0)
+Set s10 := _set__DOLLAR_SimpleProg_v1(_atom_prog_SLASH_Var_0)
+Set s11 := _set__DOLLAR_GenerateAnyResult_v2(_atom_prog_SLASH_Var_1)
+Set s12 := _set__DOLLAR_SimpleProg_v0(_atom_prog_SLASH_Var_1)
+Set s13 := _set__DOLLAR_GenerateAnyResult_v0(_atom_prog_SLASH_Var_2)
+Set s14 := _set__DOLLAR_SimpleProg_v2(_atom_prog_SLASH_Var_2)
+Rel r0 := _rel_afterLast(_atom_AnalysisResult_0, _atom_prog_SLASH_Var_0, _atom_Top_0)
+Rel r1 := _rel_afterLast(_atom_AnalysisResult_0, _atom_prog_SLASH_Var_1, _atom_Zero_0)
+Rel r2 := _rel_afterLast(_atom_AnalysisResult_0, _atom_prog_SLASH_Var_2, _atom_Top_0)
+Rel r3 := _rel_leq(_atom_Bot_0, _atom_Bot_0)
+Rel r4 := _rel_leq(_atom_Bot_0, _atom_NonZero_0)
+Rel r5 := _rel_leq(_atom_Bot_0, _atom_Top_0)
+Rel r6 := _rel_leq(_atom_Bot_0, _atom_Zero_0)
+Rel r7 := _rel_leq(_atom_NonZero_0, _atom_NonZero_0)
+Rel r8 := _rel_leq(_atom_NonZero_0, _atom_Top_0)
+Rel r9 := _rel_leq(_atom_Top_0, _atom_Top_0)
+Rel r10 := _rel_leq(_atom_Zero_0, _atom_Top_0)
+Rel r11 := _rel_leq(_atom_Zero_0, _atom_Zero_0)
+Rel r12 := _rel_lhs(_atom_prog_SLASH_AssignNumber_0, _atom_prog_SLASH_Var_1)
+Rel r13 := _rel_lhs(_atom_prog_SLASH_AssignNumber_1, _atom_prog_SLASH_Var_0)
+Rel r14 := _rel_lhs(_atom_prog_SLASH_AssignOp_0, _atom_prog_SLASH_Var_0)
+Rel r15 := _rel_lhs(_atom_prog_SLASH_AssignOp_1, _atom_prog_SLASH_Var_2)
+Rel r16 := _rel_oneLe(_atom_Bot_0, _atom_NonZero_0)
+Rel r17 := _rel_oneLe(_atom_Bot_0, _atom_Zero_0)
+Rel r18 := _rel_oneLe(_atom_NonZero_0, _atom_Top_0)
+Rel r19 := _rel_oneLe(_atom_Zero_0, _atom_Top_0)
+Rel r20 := _rel_op(_atom_prog_SLASH_AssignOp_0, "mul")
+Rel r21 := _rel_op(_atom_prog_SLASH_AssignOp_1, "sub")
+Rel r22 := _rel_op1(_atom_prog_SLASH_AssignOp_0, _atom_prog_SLASH_Var_0)
+Rel r23 := _rel_op1(_atom_prog_SLASH_AssignOp_1, _atom_prog_SLASH_Var_1)
+Rel r24 := _rel_op2(_atom_prog_SLASH_AssignOp_0, _atom_prog_SLASH_Var_0)
+Rel r25 := _rel_op2(_atom_prog_SLASH_AssignOp_1, _atom_prog_SLASH_Var_0)
+Rel r26 := _rel_resultBefore(_atom_AnalysisResult_0, 0, _atom_prog_SLASH_Var_0, _atom_Top_0)
+Rel r27 := _rel_resultBefore(_atom_AnalysisResult_0, 0, _atom_prog_SLASH_Var_1, _atom_Top_0)
+Rel r28 := _rel_resultBefore(_atom_AnalysisResult_0, 0, _atom_prog_SLASH_Var_2, _atom_Top_0)
+Rel r29 := _rel_resultBefore(_atom_AnalysisResult_0, 1, _atom_prog_SLASH_Var_0, _atom_Top_0)
+Rel r30 := _rel_resultBefore(_atom_AnalysisResult_0, 1, _atom_prog_SLASH_Var_1, _atom_Zero_0)
+Rel r31 := _rel_resultBefore(_atom_AnalysisResult_0, 1, _atom_prog_SLASH_Var_2, _atom_Top_0)
+Rel r32 := _rel_resultBefore(_atom_AnalysisResult_0, 2, _atom_prog_SLASH_Var_0, _atom_Top_0)
+Rel r33 := _rel_resultBefore(_atom_AnalysisResult_0, 2, _atom_prog_SLASH_Var_1, _atom_Zero_0)
+Rel r34 := _rel_resultBefore(_atom_AnalysisResult_0, 2, _atom_prog_SLASH_Var_2, _atom_Top_0)
+Rel r35 := _rel_resultBefore(_atom_AnalysisResult_0, 3, _atom_prog_SLASH_Var_0, _atom_Top_0)
+Rel r36 := _rel_resultBefore(_atom_AnalysisResult_0, 3, _atom_prog_SLASH_Var_1, _atom_Zero_0)
+Rel r37 := _rel_resultBefore(_atom_AnalysisResult_0, 3, _atom_prog_SLASH_Var_2, _atom_Zero_0)
+Rel r35a := _rel_resultBefore(_atom_AnalysisResult_0, 4, _atom_prog_SLASH_Var_0, _atom_Top_0)
+Rel r36a := _rel_resultBefore(_atom_AnalysisResult_0, 4, _atom_prog_SLASH_Var_1, _atom_Zero_0)
+Rel r37a := _rel_resultBefore(_atom_AnalysisResult_0, 4, _atom_prog_SLASH_Var_2, _atom_Top_0)
+Rel r38 := _rel_rhs_num(_atom_prog_SLASH_AssignNumber_0, 0)
+Rel r39 := _rel_rhs_num(_atom_prog_SLASH_AssignNumber_1, 3)
+Rel r40 := _rel_stmts(_atom_prog_SLASH_Program_0, 0, _atom_prog_SLASH_AssignNumber_0)
+Rel r41 := _rel_stmts(_atom_prog_SLASH_Program_0, 1, _atom_prog_SLASH_AssignNumber_1)
+Rel r42 := _rel_stmts(_atom_prog_SLASH_Program_0, 2, _atom_prog_SLASH_AssignOp_1)
+Rel r43 := _rel_stmts(_atom_prog_SLASH_Program_0, 3, _atom_prog_SLASH_AssignOp_0)
+Rel r43a := _rel_stmts(_atom_prog_SLASH_Program_0, 4, _atom_prog_SLASH_Goto_0)
+Rel r44 := _rel_target(_atom_prog_SLASH_Goto_0, 2)
+Label _atom_AnalysisResult_0 "AnalysisResult_0"
+Label _atom_Bot_0 "Bot_0"
+Label _atom_NonZero_0 "NonZero_0"
+Label _atom_Top_0 "Top_0"
+Label _atom_Zero_0 "Zero_0"
+Label _atom_prog_SLASH_AssignNumber_0 "prog/AssignNumber_0"
+Label _atom_prog_SLASH_AssignNumber_1 "prog/AssignNumber_1"
+Label _atom_prog_SLASH_AssignOp_0 "prog/AssignOp_0"
+Label _atom_prog_SLASH_AssignOp_1 "prog/AssignOp_1"
+Label _atom_prog_SLASH_Goto_0 "prog/Goto_0"
+Label _atom_prog_SLASH_Program_0 "prog/Program_0"
+Label _atom_prog_SLASH_Var_0 "prog/Var_0"
+Label _atom_prog_SLASH_Var_1 "prog/Var_1"
+Label _atom_prog_SLASH_Var_2 "prog/Var_2"

@@ -1,0 +1,78 @@
+type Rel
+type Set
+Set <: Rel
+type _type_AnalysisResult
+type _type_Bot
+type _type_NonZero
+type _type_Top
+type _type_univ
+type _type_Zero
+type _type_analysis_SLASH_LatticeElement
+type _type_prog_SLASH_AssignNumber
+type _type_prog_SLASH_AssignOp
+type _type_prog_SLASH_AssignVar
+type _type_prog_SLASH_Fail
+type _type_prog_SLASH_Goto
+type _type_prog_SLASH_IfGoto
+type _type_prog_SLASH_Noop
+type _type_prog_SLASH_Program
+type _type_prog_SLASH_Stmt
+type _type_prog_SLASH_Var
+type _conj_prog_SLASH_AssignNumber_OR_prog_SLASH_AssignOp_OR_prog_SLASH_AssignVar
+type _conj_prog_SLASH_AssignOp_OR_prog_SLASH_IfGoto
+type _conj_prog_SLASH_AssignNumber_OR_prog_SLASH_AssignVar
+type _conj_PENROSENumber_OR_prog_SLASH_Var
+type _conj_prog_SLASH_Goto_OR_prog_SLASH_IfGoto
+_type_prog_SLASH_AssignNumber <: _conj_prog_SLASH_AssignNumber_OR_prog_SLASH_AssignOp_OR_prog_SLASH_AssignVar
+_type_prog_SLASH_AssignOp <: _conj_prog_SLASH_AssignNumber_OR_prog_SLASH_AssignOp_OR_prog_SLASH_AssignVar
+_type_prog_SLASH_AssignVar <: _conj_prog_SLASH_AssignNumber_OR_prog_SLASH_AssignOp_OR_prog_SLASH_AssignVar
+_type_prog_SLASH_AssignOp <: _conj_prog_SLASH_AssignOp_OR_prog_SLASH_IfGoto
+_type_prog_SLASH_IfGoto <: _conj_prog_SLASH_AssignOp_OR_prog_SLASH_IfGoto
+_type_prog_SLASH_AssignNumber <: _conj_prog_SLASH_AssignNumber_OR_prog_SLASH_AssignVar
+_type_prog_SLASH_AssignVar <: _conj_prog_SLASH_AssignNumber_OR_prog_SLASH_AssignVar
+_type_prog_SLASH_Var <: _conj_PENROSENumber_OR_prog_SLASH_Var
+_type_prog_SLASH_Goto <: _conj_prog_SLASH_Goto_OR_prog_SLASH_IfGoto
+_type_prog_SLASH_IfGoto <: _conj_prog_SLASH_Goto_OR_prog_SLASH_IfGoto
+_type_AnalysisResult <: _type_univ
+_type_Bot <: _type_analysis_SLASH_LatticeElement
+_type_NonZero <: _type_analysis_SLASH_LatticeElement
+_type_Top <: _type_analysis_SLASH_LatticeElement
+_type_Zero <: _type_analysis_SLASH_LatticeElement
+_type_analysis_SLASH_LatticeElement <: _type_univ
+_type_prog_SLASH_AssignNumber <: _type_prog_SLASH_Stmt
+_type_prog_SLASH_AssignOp <: _type_prog_SLASH_Stmt
+_type_prog_SLASH_AssignVar <: _type_prog_SLASH_Stmt
+_type_prog_SLASH_Fail <: _type_prog_SLASH_Stmt
+_type_prog_SLASH_Goto <: _type_prog_SLASH_Stmt
+_type_prog_SLASH_IfGoto <: _type_prog_SLASH_Stmt
+_type_prog_SLASH_Noop <: _type_prog_SLASH_Stmt
+_type_prog_SLASH_Program <: _type_univ
+_type_prog_SLASH_Stmt <: _type_univ
+_type_prog_SLASH_Var <: _type_univ
+function _set__DOLLAR_GenerateAnyResult_p (_type_prog_SLASH_Program) -> Set
+function _set__DOLLAR_GenerateAnyResult_r (_type_AnalysisResult) -> Set
+function _set__DOLLAR_GenerateAnyResult_v0 (_type_prog_SLASH_Var) -> Set
+function _set__DOLLAR_GenerateAnyResult_v1 (_type_prog_SLASH_Var) -> Set
+function _set__DOLLAR_GenerateAnyResult_v2 (_type_prog_SLASH_Var) -> Set
+function _set__DOLLAR_SimpleProg_st0 (_type_prog_SLASH_AssignNumber) -> Set
+function _set__DOLLAR_SimpleProg_st1 (_type_prog_SLASH_AssignNumber) -> Set
+function _set__DOLLAR_SimpleProg_st2 (_type_prog_SLASH_AssignOp) -> Set
+function _set__DOLLAR_SimpleProg_st3 (_type_prog_SLASH_AssignOp) -> Set
+function _set__DOLLAR_SimpleProg_st4 (_type_prog_SLASH_Goto) -> Set
+function _set__DOLLAR_SimpleProg_v0 (_type_prog_SLASH_Var) -> Set
+function _set__DOLLAR_SimpleProg_v1 (_type_prog_SLASH_Var) -> Set
+function _set__DOLLAR_SimpleProg_v2 (_type_prog_SLASH_Var) -> Set
+function _set_integer_SLASH_Bit (Number) -> Set
+function _rel_afterLast (_type_AnalysisResult, _type_prog_SLASH_Var, _type_analysis_SLASH_LatticeElement) -> Rel
+function _rel_leq (_type_analysis_SLASH_LatticeElement, _type_analysis_SLASH_LatticeElement) -> Rel
+function _rel_lhs (_conj_prog_SLASH_AssignNumber_OR_prog_SLASH_AssignOp_OR_prog_SLASH_AssignVar, _type_prog_SLASH_Var) -> Rel
+function _rel_oneLe (_type_analysis_SLASH_LatticeElement, _type_analysis_SLASH_LatticeElement) -> Rel
+function _rel_op (_conj_prog_SLASH_AssignOp_OR_prog_SLASH_IfGoto, String) -> Rel
+function _rel_op1 (_type_prog_SLASH_AssignOp, _type_prog_SLASH_Var) -> Rel
+function _rel_op2 (_type_prog_SLASH_AssignOp, _type_prog_SLASH_Var) -> Rel
+function _rel_resultBefore (_type_AnalysisResult, Number, _type_prog_SLASH_Var, _type_analysis_SLASH_LatticeElement) -> Rel
+function _rel_rhs_num(_conj_prog_SLASH_AssignNumber_OR_prog_SLASH_AssignVar, Number) -> Rel
+function _rel_rhs(_conj_prog_SLASH_AssignNumber_OR_prog_SLASH_AssignVar, _conj_PENROSENumber_OR_prog_SLASH_Var) -> Rel
+function _rel_stmts (_type_prog_SLASH_Program, Number, _type_prog_SLASH_Stmt) -> Rel
+function _rel_target (_conj_prog_SLASH_Goto_OR_prog_SLASH_IfGoto, Number) -> Rel
+function _rel_vv (_type_prog_SLASH_IfGoto, _type_prog_SLASH_Var) -> Rel

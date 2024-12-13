@@ -12,7 +12,7 @@ fact {
   all i: Int | one vv: Val | vv.v = i
 }
 
-run {} for 3 but exactly 16 Val
+run ShowLattice {} for 0 but exactly 16 Val expect 1
 
 fun Alpha [n: Int]: Val {
   { vv: Val |
@@ -29,7 +29,7 @@ fun Join [s1, s2: LatticeElement]: LatticeElement {
   }
 }
 
-fun LiftedJoin [s1: Var -> one LatticeElement, s2: Var -> one LatticeElement]: Var -> one LatticeElement {
+fun LiftedJoin [s1: Var -> LatticeElement, s2: Var -> LatticeElement]: Var -> one LatticeElement {
   { v: Var, res: LatticeElement |
     let e1 = v.s1, e2 = v.s2 | res = Join[e1, e2]
   }
@@ -58,7 +58,10 @@ fun FlowOpVal [l1: one Val, l2: one Val, op: one ("add" + "sub" + "mul" + "div")
   }
 }
 
-fun FlowOp [l1: one LatticeElement, l2: one LatticeElement, op: one ("add" + "sub" + "mul" + "div")]: one LatticeElement {
+fun FlowOp [
+  l1: one LatticeElement, 
+  l2: one LatticeElement, 
+  op: one ("add" + "sub" + "mul" + "div")]: one LatticeElement {
   { ll: LatticeElement |
     (l1 = Bot or l2 = Bot) implies ll = Bot
     else (l1 = Top or l2 = Top) implies ll = Top
@@ -86,17 +89,17 @@ fun FlowThrough [si: Var -> one LatticeElement, s: Stmt]: Var -> one LatticeElem
 }
 
 check FlowFunctionPreservesVars {
-  all s1, s2: Var -> one LatticeElement |
+  all s1, s2: Var -> LatticeElement |
   all s: Stmt |
-  s2 = FlowThrough[s1, s] implies s1.univ = s2.univ
-} for 10 but exactly 16 Val expect 0
+  GoodSigma[s1] and s2 = FlowThrough[s1, s] implies GoodSigma[s2] and s1.univ = s2.univ
+} for 3 but exactly 16 Val, exactly 0 AnalysisResult expect 0
 
-pred GoodSigma [s: Var -> one LatticeElement] {
-  all v: Var | some v.s
+pred GoodSigma [s: Var -> LatticeElement] {
+  all v: Var | one v.s
 }
 
 pred Distributive {
-  all s1, s2: Var -> one LatticeElement |
+  all s1, s2: Var -> LatticeElement |
   all s: Stmt |
   GoodSigma[s1] and GoodSigma[s2] implies
   let f_s1_U_s2 = FlowThrough[LiftedJoin[s1, s2], s] |
@@ -106,21 +109,31 @@ pred Distributive {
 
 check Distributive {
   Distributive
-} for 10 but exactly 3 Var, exactly 16 Val expect 1
+} for 10 but exactly 1 Stmt, exactly 3 Var, exactly 16 Val expect 1
 
-sig AnalysisResult {
-  resultBefore: seq/Int -> (Var -> LatticeElement),
-  afterLast: Var -> LatticeElement
-}
 
-pred LiftedLeq [s1, s2: Var -> one LatticeElement] {
+pred LiftedLeq [s1, s2: Var -> LatticeElement] {
   all v: Var {
     one v.s1 and one v.s2
     v.s1 -> v.s2 in leq
   }
 }
 
-pred GoodResult [p: Program, r: AnalysisResult, entry: Var -> one LatticeElement] {
+pred Monotone {
+  all s1, s2: Var -> LatticeElement |
+  all s: Stmt |
+  GoodSigma[s1] and GoodSigma[s2] and LiftedLeq[s1, s2] implies
+  LiftedLeq[FlowThrough[s1, s], FlowThrough[s2, s]]
+}
+check Monotone { Monotone } for 3 but exactly 0 Program, exactly 0 AnalysisResult, exactly 3 Var, exactly 16 Val expect 0
+
+sig AnalysisResult {
+  resultBefore: seq/Int -> (Var -> LatticeElement),
+  afterLast: Var -> LatticeElement
+}
+
+
+pred ValidResult [p: Program, r: AnalysisResult, entry: Var -> one LatticeElement] {
   one r
   one p
 
@@ -136,15 +149,13 @@ pred GoodResult [p: Program, r: AnalysisResult, entry: Var -> one LatticeElement
     LiftedLeq [sigmaAfterFlow, rBeforeThis]
   }}}}}
 
+
   let lastIndex = sub[#(r.resultBefore.univ.univ), 1] {
-    r.afterLast = FlowThrough [lastIndex.(r.resultBefore), p.stmts.last]
+    LiftedLeq [FlowThrough [lastIndex.(r.resultBefore), p.stmts.last], r.afterLast]
   }
 }
 
-
-run TestProgram {
-  some p: Program | {
-  some disj v0, v1, v2: Var |
+pred SimpleProg [p: Program, v0, v1, v2: Var] {
   some st0: AssignNumber, st1: AssignNumber, st2: AssignOp, st3: AssignVar {
     // Program looks like:
     // v0 = 2
@@ -164,6 +175,13 @@ run TestProgram {
     st3.rhs = v1
 
     WellFormedProgram[p]
+  }
+}
+
+run TestProgram {
+  some p: Program | {
+  some disj v0, v1, v2: Var {
+    SimpleProg[p, v0, v1, v2]
 
 	some r: AnalysisResult, vv2: Val, vv3: Val, vv5: Val {
       vv2.v=2 and vv3.v=3 and vv5.v=5
@@ -174,7 +192,7 @@ run TestProgram {
         3 -> v0 -> vv2 + 3 -> v1 -> vv3 + 3 -> v2 -> vv5
       r.afterLast = v0 -> vv2 + v1 -> vv3 + v2 -> vv3
 
-      GoodResult[p, r, (v0 + v1 + v2) -> Top]
+      ValidResult[p, r, (v0 + v1 + v2) -> Top]
     }
 
   }}

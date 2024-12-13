@@ -71,15 +71,14 @@ pred WellFormedProgram [p: Program] {
 run OneWellFormedProgram {
   one p: Program | {
     WellFormedProgram [p]
-    #(p.stmts) > 2
   }
-} for 4 seq
+}
 
 run OneSimpleProgram {
   // one simple program:
   // 0: v := 1
   // 1: if v eq0 then goto 0
-  some p: Program |
+  one p: Program |
   some s0: AssignNumber, s1: IfGoto, v: Var | {
     p.stmts = 0 -> s0 + 1 -> s1
     s0.lhs = v

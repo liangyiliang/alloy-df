@@ -1,0 +1,89 @@
+canvas {
+  height = 800
+  width = 700
+}
+
+const {
+  VariableY = 300
+  VariableX = -100
+  finalStmtY = ?
+}
+
+forall _type_prog_SLASH_Var v {
+  v.x_center = const.VariableX + match_id * 100
+  Text {
+    center: [v.x_center, const.VariableY]
+    string: v.label
+  }
+}
+
+forall _type_prog_SLASH_Stmt s {
+  s.center_y = ?
+  s.center = (-100, s.center_y)
+  s.text = "placeholder"
+  Text {
+    string: s.text
+    center: s.center
+    fontWeight: "bold"
+  }
+}
+
+forall repeatable _type_prog_SLASH_AssignNumber s; _type_prog_SLASH_Var lhs
+where r0 := _rel_lhs(s, lhs); r1 := _rel_rhs_num(s, n)
+with Rel r0, r1
+{
+  override s.text = lhs.label + " := " + nameof n
+}
+
+forall repeatable _type_prog_SLASH_AssignVar s; _type_prog_SLASH_Var lhs, rhs
+where r0 := _rel_lhs(s, lhs); r1 := _rel_rhs(s, rhs)
+with Rel r0, r1
+{
+  override s.text = lhs.label + " := " + rhs.label
+}
+
+forall repeatable _type_prog_SLASH_AssignOp s; _type_prog_SLASH_Var lhs, op1, op2
+where r0 := _rel_lhs(s, lhs); r1 := _rel_op1(s, op1); r2 := _rel_op2(s, op2); r3 := _rel_op(s, op)
+with Rel r0, r1, r2, r3
+{
+  override s.text = lhs.label + " := " + op1.label + " " + op + " " + op2.label
+}
+
+forall _type_prog_SLASH_Goto s
+where r0 := _rel_target(s, n)
+with Rel r0, r1
+{
+  override s.text = "goto " + nameof n
+}
+
+collect _type_prog_SLASH_Stmt s into ss {
+  override const.finalStmtY = minList(listof center_y from ss)
+}
+
+forall _type_prog_SLASH_Stmt s; _type_prog_SLASH_Program p
+where r0 := _rel_stmts(p, n, s); s0 := _set__DOLLAR_GenerateAnyResult_p(p)
+with Rel r0; Set s0 {
+  override s.center_y = 200 - n * 60
+  Text {
+    string: nameof n + " : "
+    center: (-250, s.center_y)
+  }
+}
+
+forall _type_analysis_SLASH_LatticeElement e; _type_prog_SLASH_Var v; _type_AnalysisResult r
+where s0 := _set__DOLLAR_GenerateAnyResult_r(r); r0 := _rel_resultBefore(r, n, v, e)
+with Rel r0; Set s0 {
+  Text {
+    string: e.label
+    center: (v.x_center, 225 - n * 60)
+  }
+}
+
+forall _type_analysis_SLASH_LatticeElement e; _type_prog_SLASH_Var v; _type_AnalysisResult r
+where s0 := _set__DOLLAR_GenerateAnyResult_r(r); r0 := _rel_afterLast(r, v, e)
+with Rel r0; Set s0 {
+  Text {
+    string: e.label
+    center: (v.x_center, const.finalStmtY - 30)
+  }
+}
